@@ -1,0 +1,159 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BMI Calculator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://img.freepik.com/free-photo/view-gym-room-training-sports_23-2151699540.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        .container {
+            max-width: 400px;
+            margin: 100px auto;
+            padding: 30px;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #b8b0b000, #e4d7d7);
+            box-shadow: 0 8px 16px rgba(238, 235, 235, 0.4);
+            color: #0f0f0f;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #aaa;
+        }
+        button {
+            margin-top: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .more-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            text-decoration: none;
+            z-index: 999;
+        }
+        .more-btn:hover {
+            background-color: #0056b3;
+        }
+        .logo {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 80px;
+        }
+    </style>
+</head>
+<body>
+
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYmrJPalbojryWPBr8juL7T7JkMQMeMyfc5X06oK2dOhzntpEPdT-chtHvwoWtx90czn4&usqp=CAU" alt="logo" class="logo">
+
+    <div class="container">
+        <h2>BMI Calculator</h2>
+
+        <label for="weight">Weight:</label>
+        <input type="text" id="weight" placeholder="Enter your weight">
+        <small>Select unit:</small>
+        <select id="weightUnit">
+            <option value="kg">Kilograms (kg)</option>
+            <option value="lb">Pounds (lb)</option>
+        </select>
+
+        <label for="height">Height:</label>
+        <input type="text" id="height" placeholder="Enter your height">
+        <small>Select unit:</small>
+        <select id="heightUnit">
+            <option value="m">Meters (m)</option>
+            <option value="cm">Centimeters (cm)</option>
+            <option value="ft">Feet (ft)</option>
+        </select>
+
+        <button onclick="calculateBMI()">Calculate BMI</button>
+        <button onclick="resetFields()" style="background-color: #6c757d; margin-top: 10px;">Reset</button>
+
+        <h3 id="result"></h3>
+    </div>
+
+    <a href="AboutBMI.html" class="more-btn">More about BMI</a>
+
+    <script>
+  function showLoader(targetPage) {
+      sessionStorage.setItem("redirectTo", targetPage);
+      window.location.href = "loader.html";
+  }
+
+  function calculateBMI() {
+      var weight = parseFloat(document.getElementById('weight').value);
+      var height = parseFloat(document.getElementById('height').value);
+      var weightUnit = document.getElementById('weightUnit').value;
+      var heightUnit = document.getElementById('heightUnit').value;
+
+      if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+          document.getElementById('result').innerHTML = "Please enter valid weight and height!";
+          return;
+      }
+
+      if (weightUnit === 'lb') {
+          weight = weight * 0.453592;
+      }
+
+      if (heightUnit === 'cm') {
+          height = height / 100;
+      } else if (heightUnit === 'ft') {
+          height = height * 0.3048;
+      }
+
+      var bmi = weight / (height * height);
+      var category = "";
+
+      if (bmi < 18.5) {
+          category = "Underweight. <a href='#' onclick=\"showLoader('underweight.html')\">Click here for more information</a>";
+      } else if (bmi >= 18.5 && bmi < 24.9) {
+          category = "Normal weight. <a href='#' onclick=\"showLoader('Normalweight.html')\">Click here for more information</a>";
+      } else if (bmi >= 25 && bmi < 29.9) {
+          category = "Overweight. <a href='#' onclick=\"showLoader('overweight.html')\">Click here for more information</a>";
+      } else {
+          category = "Obese. <a href='#' onclick=\"showLoader('obese.html')\">Click here for more information</a>";
+      }
+
+      document.getElementById('result').innerHTML = "Your BMI is " + bmi.toFixed(2) + " (" + category + ")";
+  }
+
+  function resetFields() {
+      document.getElementById('weight').value = "";
+      document.getElementById('height').value = "";
+      document.getElementById('weightUnit').selectedIndex = 0;
+      document.getElementById('heightUnit').selectedIndex = 0;
+      document.getElementById('result').innerHTML = "";
+  }
+</script>
+
+
+</body>
+</html>
