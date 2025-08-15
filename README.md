@@ -1,5 +1,6 @@
 # Body-Mass-Index-BMI--analyzer
 Body Mass Index (BMI) is a measure used to estimate body fat based on height and weight. Our website helps users quickly calculate their BMI and understand what it means—whether underweight, healthy, overweight, or obese—providing insights to support better health decisions.
+live demo:https://smohammed-suhail.github.io/Body-Mass-Index-BMI--analyzer/
 # PowerUp BMI Calculator 💪
 
 A stylish, interactive Body Mass Index (BMI) calculator with animated fitness-themed loading screen. Built using **HTML, CSS, JavaScript**, and **Tailwind CSS**.
